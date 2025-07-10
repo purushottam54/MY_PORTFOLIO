@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1b1b1b;
+            color: white;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #terminal {
+            width: 700px;
+            height: 700px;
+            overflow: hidden;
+            border: 1px solid white;
+            display: flex;
+            flex-direction: column;
+            background-color: #081b29;
+        }
+
+        #output {
+            overflow-y: auto;
+            color: #00ff00;
+            padding: 10px;
+            background-color: #081b29;
+        }
+
+        #input-container {
+            color: red;
+            display: flex;
+            padding: 10px;
+            background-color: #081b29;
+            box-sizing: border-box;
+        }
+
+        #prompt {
+            color: red;
+            margin-right: 5px;
+        }
+
+        #input {
+            width: 100%;
+            height: 20px;
+            background-color: #081b29;
+            border: none;
+            color: #00ff00;
+            outline: none;
+            font-size: 16px;
+        }
+
+        #password-input {
+            color: #00ff00;
+            border: none;
+            background-color: black;
+            display: none;
+        }
+
+        pre {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.5;
+            color: white;
+            padding: 10px;
+            background-color: #081b29;
+        }
+
+        pre p {
+            color: #00ff00;
+        }
+
+        .glitch {
+            position: relative;
+            font-size: 30px;
+            font-weight: bold;
+            color: #FFFFFF;
+            letter-spacing: 3px;
+            z-index: 1;
+        }
+
+        .glitch:before,
+        .glitch:after {
+            display: block;
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.8;
+        }
+
+        .glitch:before {
+            animation: glitch-it 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+            color: #00FFFF;
+            z-index: -1;
+        }
+
+        .glitch:after {
+            animation: glitch-it 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+            color: #FF00FF;
+            z-index: -2;
+        }
+
+        @keyframes glitch-it {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-2px, 2px);
+            }
+
+            40% {
+                transform: translate(-2px, -2px);
+            }
+
+            60% {
+                transform: translate(2px, 2px);
+            }
+
+            80% {
+                transform: translate(2px, -2px);
+            }
+
+            to {
+                transform: translate(0);
+            }
+        }
+
+        #terminal {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            #terminal {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="terminal">
+        <pre>
+            ██████╗ ██╗████████╗ █████╗ ███████╗██╗   ██╗
+           ██╔════╝ ██║╚══██╔══╝██╔══██╗██╔════╝╚██╗ ██╔╝
+           ██║  ███╗██║   ██║   ███████║███████╗ ╚████╔╝
+           ██║   ██║██║   ██║   ██╔══██║╚════██║  ╚██╔╝
+           ╚██████╔╝██║   ██║   ██║  ██║███████║   ██║
+            ╚═════╝ ╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝   ╚═╝
+            <p>OS: Terminal Linux</p>
+                  </pre>
+        <div id="output"></div>
+        <div id="input-container">
+            <span id="prompt">@Kali&gt;</span>
+            <div id="input" contenteditable="true" type="text" onkeydown="handleInput(event)"></div>
+        </div>
+        <input type="password" id="password-input" placeholder="Enter password" onkeydown="handlePasswordInput(event)">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const outputElement = document.getElementById('output');
+            const inputElement = document.getElementById('input');
+            const passwordInputElement = document.getElementById('password-input');
+            let isRootUser = false;
+            let commandHistory = [];
+            let historyIndex = -1;
+            inputElement.addEventListener('keydown', handleInput);
+            passwordInputElement.addEventListener('keydown', handlePasswordInput);
+            function handleInput(event) {
+                if (event.key === 'Enter') {
+                    const command = inputElement.innerText.trim().toLowerCase();
+                    processCommand(command);
+                    inputElement.innerText = '';
+                    commandHistory.unshift(command);
+                    historyIndex = -1;
+                    event.preventDefault();
+                } else if (event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    showPreviousCommand();
+                } else if (event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    showNextCommand();
+                }
+                else if (event.key === 'Tab') {
+                    event.preventDefault();
+                    autocompleteCommand();
+                }
+            }
+            function autocompleteCommand() {
+                const partialCommand = inputElement.value.toLowerCase();
+                const availableCommands = ['name', 'help', 'about', 'social-media', 'project', 'banner', 'clear'];
+
+                for (const command of availableCommands) {
+                    if (command.startsWith(partialCommand)) {
+                        inputElement.value = command;
+                        break;
+                    }
+                }
+            }
+            function handlePasswordInput(event) {
+                if (event.key === 'Enter') {
+                    const password = passwordInputElement.value.trim();
+                    passwordInputElement.value = '';
+                    processPassword(password);
+                }
+            }
+            function showPreviousCommand() {
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    setInputText(commandHistory[historyIndex]);
+                }
+            }
+            function showNextCommand() {
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    setInputText(commandHistory[historyIndex]);
+                } else if (historyIndex === 0) {
+                    historyIndex = -1;
+                    setInputText('');
+                }
+            }
+            function setInputText(text) {
+                inputElement.innerText = text;
+                setCaretPosition(inputElement, text.length);
+            }
+            function setCaretPosition(element, position) {
+                const range = document.createRange();
+                const selection = window.getSelection();
+                range.setStart(element.childNodes[0], position);
+                range.collapse(true);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+            function processCommand(command) {
+                if (command === 'sudo su') {
+                    isRootUser = true;
+                    passwordInputElement.style.display = 'inline';
+                    displayOutputWithTyping('Enter password for root:');
+                } else if (command === 'exit' && isRootUser) {
+                    isRootUser = false;
+                    updatePrompt();
+                    displayOutputWithTyping('Exited root mode. Back to normal shell.');
+                    clearTerminal();
+                }
+                else if (command === 'exit' && !isRootUser) {
+                    clearTerminal();
+                }
+                else {
+                    displayCommand(`<span id="prompt">@${isRootUser ? 'root' : 'Kali'}&gt;</span> ${command}`);
+                    handleCommand(command);
+                }
+            }
+            function processPassword(password) {
+                if (isCorrectPassword(password)) {
+                    isRootUser = true;
+                    updatePrompt();
+                    displayOutputWithTyping('Password accepted. You entered as root. Welcome to the root shell!');
+                } else {
+                    isRootUser = false;
+                    updatePrompt();
+                    displayOutputWithTyping('Incorrect password. Unable to enter root mode.');
+                }
+                passwordInputElement.style.display = 'none';
+            }
+            function isCorrectPassword(password) {
+                return password === '123456789';
+            }
+            function updatePrompt() {
+                const promptElement = document.getElementById('prompt');
+                promptElement.innerHTML = `@${isRootUser ? 'root' : 'Kali'}&gt;`;
+            }
+            function handleCommand(command) {
+                if (command === 'name') {
+                    displayOutputWithTyping1(' Developer name: <div class="glitch-wrapper"><div class="glitch" data-text="Purushottam Sarsekar">Purushottam Sarsekar</div><div>');
+                } else if ((command === 'help') || (command === '-h')) {
+                    displayOutputWithTyping1(' Available Commands: <br>- name: Display devloper name. <br>- help: Show available commands. <br>- banner [text]: Display a banner. <br>- clear: Clear the terminal. <br>- about: about of develper <br>- poject: show available project. <br>- social-media: show all social media account. <br>- figlet  [Text]: it show typed tet cool.');
+                } else if (command === 'about') {
+                    displayOutputWithTyping(' As a coder and web developer, i possess a versatile skill set across multiple programming languages and web technologies. i proficiency in Python, C, C++, Java, and PHP reflects a strong foundation in both high-level and system-level programming. This breadth of language expertise allows i to choose the best-suited tool for various development tasks, whether it s rapid application development with Python, efficient system-level programming with C and C++, or robust server-side scripting with PHP.');
+                }
+                else if (command === 'project') {
+                    displayOutputWithTyping('1 Image genrator ---- <br>2 PhotoEditor ---- https://purushottam54.github.io/PHOTO-EDITOR/ <br>3 Rocket game --- <br>4 Hospital Management --- <br>5 Currency Convertor ---https://github.com/purushottam54/money_converter <br>6 Factor number ---https://purushottam54.github.io/factor-number/ <br>7 Bouncing Animation ---https://github.com/purushottam54/Bouncing-Animation <br>8 Porfolio template ---https://purushottam54.github.io/Portfolio-template-/');
+                }
+                else if (command === 'social-media') {
+                    displayOutputWithTyping('1 instagram ->https://www.instagram.com/its__purushottam_/ <br>2 Twitter ->https://twitter.com/PSarsekar <br>3 Facebook -> <br>4 Github ->https://github.com/purushottam54 <br>5 Linkedin ->https://wwwlinkedincomsignupcold-joinsession_redirect=https%3A%2F%2Fwww%2Elinkedin%2Ecom%2Ffeed%2Ftrk=login_reg_redirect <br>');
+                }
+                else if (command === 'history') {
+                    showCommandHistory();
+                }
+                else if (command.startsWith('figlet')) {
+                    const figletText = command.substring('figlet'.length).trim();
+                    displayfiglet(figletText);
+                }
+                else if (command.startsWith('banner')) {
+                    const bannerText = command.substring('banner'.length).trim();
+                    displayBanner(bannerText);
+                } else if ((command === 'clear') || (command == 'clr')) {
+                    clearTerminal();
+                } else if (command === 'sudo su') {
+                    isRootUser = !isRootUser;
+                    updatePrompt();
+                    displayOutputWithTyping('You entered as root. Welcome to the root shell!');
+                }
+                else {
+                    displayOutputWithTyping('Unknown command. Type "help" for available commands.');
+                }
+            }
+            function showCommandHistory() {
+                commandHistory.forEach((cmd, index) => {
+                    displayOutputWithTyping(`${index + 1}. ${cmd}`);
+                });
+            }
+            function displayCommand(command) {
+                outputElement.innerHTML += `<span class="typed-output">${command}</span><br>`;
+                outputElement.scrollTop = outputElement.scrollHeight;
+            }
+            function displayOutputWithTyping(text) {
+                const outputLine = document.createElement('div');
+                outputLine.className = 'output-line';
+                outputElement.appendChild(outputLine);
+                const typedOutput = document.createElement('span');
+                typedOutput.className = 'typed-output';
+                outputLine.appendChild(typedOutput);
+                simulateTyping(typedOutput, text);
+            }
+            function simulateTyping(element, text) {
+                const options = {
+                    strings: [text],
+                    typeSpeed: 50,
+                };
+                new Typed(element, options);
+            }
+            function displayOutputWithTyping1(text) {
+                const outputLine = document.createElement('div');
+                outputLine.className = 'output-line';
+                outputElement.appendChild(outputLine);
+                const typedOutput = document.createElement('span');
+                typedOutput.className = 'typed-output';
+                outputLine.appendChild(typedOutput);
+                simulateTyping1(typedOutput, text);
+            }
+            function simulateTyping1(element, text) {
+                const options = {
+                    strings: [text],
+                    typeSpeed: 5,
+                };
+                new Typed(element, options);
+            }
+            function displayBanner(bannerText) {
+                const bannerOutput = document.createElement('div');
+                bannerOutput.className = 'output-line';
+                outputElement.appendChild(bannerOutput);
+
+                const bannerElement = document.createElement('div');
+                bannerElement.className = 'typed-output';
+                bannerOutput.appendChild(bannerElement);
+                bannerElement.style.fontSize = '30px';
+                bannerElement.style.color = '#000';
+                bannerElement.style.textShadow = '-1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff';
+                simulateTyping(bannerElement, bannerText);
+            }
+            function displayfiglet(figletText) {
+                const figletOutput = document.createElement('div');
+                figletOutput.className = 'output-line';
+                outputElement.appendChild(figletOutput);
+                const figletElement = document.createElement('div');
+                figletElement.className = 'typed-output';
+                figletOutput.appendChild(figletElement);
+                figletElement.style.fontSize = '50px';
+                figletElement.style.color = '#00ff00';
+                figletElement.style.fontWeight = 'bold';
+
+
+                simulateTyping(figletElement, figletText);
+            }
+            function clearTerminal() {
+                outputElement.innerHTML = '';
+                const promptElement = document.getElementById('prompt');
+                promptElement.innerHTML = `@${isRootUser ? 'root' : 'Kali'}&gt;`;
+            }
+        });
+    </script>
+</body>
+
+</html>

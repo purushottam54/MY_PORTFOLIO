@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GitHub profile of Purushottam Sarsekar, web developer and coder.">
+    <meta name="author" content="Purushottam Sarsekar">
+    <title>Purushottam Sarsekar - GitHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+
+        .wrapper {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+          }
+      
+          .resume-button,
+          .stop-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4B5563;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: background-color 0.3s ease;
+          }
+      
+          .resume-button:hover,
+          .stop-button:hover {
+            background-color: #4B5563;
+          }
+      
+          .pdf-container {
+            width: 80%;
+            height: 90vh;
+            display: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+          }
+      
+          .pdf-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+          }
+    </style>
+</head>
+
+<body class="bg-[#0d1117] text-white font-sans">
+
+    <header class="bg-[#161b22] px-4 py-3 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-white">Purushottam</h1>
+
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6 sm:flex sm:space-x-6">
+        <!-- Left Profile Sidebar -->
+        <aside class="sm:w-1/3 mb-6 sm:mb-0">
+            <div class="bg-[#161b22] p-6 rounded-lg text-center">
+                <img src="https://avatars.githubusercontent.com/u/116374245?v=4" alt="Purushottam's profile picture"
+                class="rounded-full mx-auto w-32 h-32 mb-4 border-4 border-[#30363d] object-cover" />
+           
+                <h2 class="text-2xl font-bold">Purushottam Sarsekar</h2>
+                <p class="text-gray-400">@purushottam54</p>
+                <p class="mt-2 text-[#c9d1d9]">BE Student | Web Developer | Android Developer </p>
+                <p class="mt-2 text-[#c9d1d9]">Dr. D. Y. Patil College of Engineering DYPCOE, Akurdi, Pune</p>
+                <div class="mt-4 space-x-3 text-xl">
+                    <a href="https://github.com/purushottam54" class="text-gray-400 hover:text-white"><i
+                            class="fab fa-github"></i></a>
+
+                    <a href="https://www.linkedin.com/in/purushottam-sarsekar-b66136290/"
+                        class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="sm:w-2/3">
+            <!-- Pinned Repositories -->
+            <div class="bg-[#161b22] p-6 rounded-lg mb-6">
+                <h3 class="text-xl font-semibold text-white mb-4">Pinned Project</h3>
+                <div class="grid sm:grid-cols-2 gap-4" id="repoGrid">
+                    <!-- Visible Repositories -->
+                    <div class="bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
+                        <h4 class="text-white font-bold text-lg">Access-Controlled-HTTP</h4>
+                        <p class="text-gray-400 text-sm mt-1">It elp to share data and file between two computer network
+                        </p>
+                        <div class="flex items-center text-gray-500 text-xs mt-2 space-x-4">
+                            <span><i class="fas fa-circle text-blue-300 text-[10px] mr-1"></i>Python</span>
+                            <span id="star-toggle" class="flex items-center cursor-pointer">
+                                <i class="fas fa-star text-gray-400 mr-1 transition-colors duration-200"></i>
+                                <span id="star-count">12</span>
+                              </span>
+                              
+                            <span><i class="fas fa-code-branch text-gray-400 mr-1"></i> 3</span>
+                        </div>
+                    </div>
+                    <div class="bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
+                        <h4 class="text-white font-bold text-lg">HOME-MAINTENANCE-SERVICES</h4>
+                        <p class="text-gray-400 text-sm mt-1">HOME-MAINTENANCE-SERVICES application that reduce manual
+                            work of human </p>
+                        <div class="flex items-center text-gray-500 text-xs mt-2 space-x-4">
+                            <span><i class="fas fa-circle text-yellow-300 text-[10px] mr-1"></i>JavaScript</span>
+                            <span id="star-toggle" class="flex items-center cursor-pointer">
+                                <i class="fas fa-star text-gray-400 mr-1 transition-colors duration-200"></i>
+                                <span id="star-count">12</span>
+                              </span>
+                              
+                            <span><i class="fas fa-code-branch text-gray-400 mr-1"></i> 3</span>
+                        </div>
+                    </div>
+                    <div class="bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
+                        <h4 class="text-white font-bold text-lg">SQL_VIRTUAL_LAB </h4>
+                        <p class="text-gray-400 text-sm mt-1">SQL query executor execute real time database query -
+                            DDL,DML,DQL,DCL</p>
+                        <div class="flex items-center text-gray-500 text-xs mt-2 space-x-4">
+                            <span><i class="fas fa-circle text-red-300 text-[10px] mr-1"></i>php</span>
+                            <span id="star-toggle" class="flex items-center cursor-pointer">
+                                <i class="fas fa-star text-gray-400 mr-1 transition-colors duration-200"></i>
+                                <span id="star-count">12</span>
+                              </span>
+                              
+                            <span><i class="fas fa-code-branch text-gray-400 mr-1"></i> 3</span>
+                        </div>
+                    </div>
+                    <div class="bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
+                        <h4 class="text-white font-bold text-lg">Firewall-Breaker </h4>
+                        <p class="text-gray-400 text-sm mt-1">It break the windows system firewall manually without
+                            taking any permission </p>
+                        <div class="flex items-center text-gray-500 text-xs mt-2 space-x-4">
+                            <span><i class="fas fa-circle text-blue-300 text-[10px] mr-1"></i>Python</span>
+                            <span id="star-toggle" class="flex items-center cursor-pointer">
+                                <i class="fas fa-star text-gray-400 mr-1 transition-colors duration-200"></i>
+                                <span id="star-count">12</span>
+                              </span>
+                              
+                            <span><i class="fas fa-code-branch text-gray-400 mr-1"></i> 3</span>
+                        </div>
+                    </div>
+                    <!-- More Visible Repositories can be added similarly -->
+
+                    <!-- Hidden Repositories -->
+                    <div class="extra-repo hidden bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
+                        <h4 class="text-white font-bold text-lg">Paste-jacking-code </h4>
+                        <p class="text-gray-400 text-sm mt-1">It used in cyber sucurity for pasting suspicious command
+                            or any query</p>
+                        <div class="flex items-center text-gray-500 text-xs mt-2 space-x-4">
+                            <span><i class="fas fa-circle text-yellow-300 text-[10px] mr-1"></i>JavaScript</span>
+                            <span id="star-toggle" class="flex items-center cursor-pointer">
+                                <i class="fas fa-star text-gray-400 mr-1 transition-colors duration-200"></i>
+                                <span id="star-count">12</span>
+                              </span>
+                              
+                            <span><i class="fas fa-code-branch text-gray-400 mr-1"></i> 3</span>
+                        </div>
+                    </div>
+                    <div class="extra-repo hidden bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
+                        <h4 class="text-white font-bold text-lg">PHOTO-EDITOR</h4>
+                        <p class="text-gray-400 text-sm mt-1">Photo editor is manually me created by using Gsap html css
+                            and JavaScript and that is my diploma microproject</p>
+                        <div class="flex items-center text-gray-500 text-xs mt-2 space-x-4">
+                            <span><i class="fas fa-circle text-green-300 text-[10px] mr-1"></i>HTML</span>
+                            <span id="star-toggle" class="flex items-center cursor-pointer">
+                                <i class="fas fa-star text-gray-400 mr-1 transition-colors duration-200"></i>
+                                <span id="star-count">12</span>
+                              </span>
+                              
+                            <span><i class="fas fa-code-branch text-gray-400 mr-1"></i> 3</span>
+                        </div>
+                    </div>
+                    <div class="extra-repo hidden bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
+                        <h4 class="text-white font-bold text-lg">money_converter</h4>
+                        <p class="text-gray-400 text-sm mt-1">This is project convert money into any other country like
+                            dollar dirhams inr </p>
+                        <div class="flex items-center text-gray-500 text-xs mt-2 space-x-4">
+                            <span><i class="fas fa-circle text-purple-300 text-[10px] mr-1"></i>Bootstrap</span>
+                            <span><i class="fas fa-star text-gray-400 mr-1"></i> 12</span>
+                            <span><i class="fas fa-code-branch text-gray-400 mr-1"></i> 3</span>
+                        </div>
+                    </div>
+                    <div class="extra-repo hidden bg-[#0d1117] border border-[#30363d] p-4 rounded-lg">
+                        <h4 class="text-white font-bold text-lg">Portfolio-template</h4>
+                        <p class="text-gray-400 text-sm mt-1">This is portfolio template</p>
+                        <div class="flex items-center text-gray-500 text-xs mt-2 space-x-4">
+                            <span><i class="fas fa-circle text-lime-300 text-[10px] mr-1"></i>CSS</span>
+                            <span id="star-toggle" class="flex items-center cursor-pointer">
+                                <i class="fas fa-star text-gray-400 mr-1 transition-colors duration-200"></i>
+                                <span id="star-count">12</span>
+                              </span>
+                              
+                            <span><i class="fas fa-code-branch text-gray-400 mr-1"></i> 3</span>
+                        </div>
+                    </div>
+                    <!-- Add more hidden repositories here if needed -->
+                </div>
+
+                <!-- Toggle Button -->
+                <div class="text-center mt-4">
+                    <button onclick="toggleRepos()" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600"
+                        id="toggleBtn">Show More</button>
+                </div>
+            </div>
+
+            <!-- Bio Section -->
+            <div class="bg-[#161b22] p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-white mb-4">About Me</h3>
+                <p class="text-[#c9d1d9]">
+                    I am a web developer passionate about building responsive and accessible websites. I enjoy working
+                    with JavaScript, Tailwind CSS, and exploring Python projects. I am currently pursuing my B.E. in
+                    Information Technology at Dr. D.Y. Patil College of Engineering, Pune. I have a keen interest in web
+                    development and am always eager to learn new technologies and improve my skills. I have worked on
+                    various projects, including web applications and tools that enhance user experience. I am also
+                    interested in cybersecurity and have developed tools to assist in this field. In my free time, I
+                    enjoy reading tech blogs, contributing to open-source projects, and exploring new programming
+                    languages.
+
+
+                </p>
+            </div>
+
+
+         
+  <div class="wrapper">
+    <button id="resumeBtn" class="resume-button" onclick="showResume()">View Resume</button>
+    
+    <div class="pdf-container" id="pdfViewer">
+      <iframe src="resume_real.pdf"></iframe>
+    </div>
+
+    <button id="stopBtn" class="stop-button" onclick="hideResume()" style="display: none;">Stop</button>
+  </div>
+        </section>
+    </main>
+
+    
+
+    <!-- Toggle Script -->
+    <script>
+        function toggleRepos() {
+            const hiddenRepos = document.querySelectorAll('.extra-repo');
+            const btn = document.getElementById('toggleBtn');
+
+            hiddenRepos.forEach(repo => {
+                repo.classList.toggle('hidden');
+            });
+
+            btn.textContent = btn.textContent === "Show More" ? "Show Less" : "Show More";
+        }
+
+
+            const starToggle = document.getElementById('star-toggle');
+            const starIcon = starToggle.querySelector('i');
+            let starred = false;
+          
+            starToggle.addEventListener('click', () => {
+              starred = !starred;
+              starIcon.classList.toggle('text-yellow-400', starred);
+              starIcon.classList.toggle('text-gray-400', !starred);
+            });
+          
+
+            function showResume() {
+                document.getElementById('pdfViewer').style.display = 'block';
+                document.getElementById('resumeBtn').style.display = 'none';
+                document.getElementById('stopBtn').style.display = 'inline-block';
+              }
+          
+              function hideResume() {
+                document.getElementById('pdfViewer').style.display = 'none';
+                document.getElementById('resumeBtn').style.display = 'inline-block';
+                document.getElementById('stopBtn').style.display = 'none';
+              }
+    </script>
+</body>
+
+</html>
